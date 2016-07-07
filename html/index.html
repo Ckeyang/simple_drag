@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我特么就是个卖萌的！</title>
+</head>
+<style type="text/css">
+    * {
+        padding: 0;
+        margin: 0
+    }
+
+    .box {
+        width: 200px;
+        height: 200px;
+        cursor: move;
+        position: absolute;
+        top: 30px;
+        left: 30px;
+        background-color: #FFF;
+        border: 1px solid #CCCCCC;
+        -webkit-box-shadow: 10px 10px 25px #ccc;
+        -moz-box-shadow: 10px 10px 25px #ccc;
+        box-shadow: 10px 10px 25px #ccc;
+        text-align: center;
+    }
+
+    .coor_1, .coor_2, .coor_3, .coor_4 {
+        width: 10px;
+        height: 10px;
+        overflow: hidden;
+        position: absolute;
+        background-color: #09C;
+    }
+
+    .coor_1 {
+        cursor: se-resize;
+        left: 0;
+        top: 0;
+    }
+
+    .coor_2 {
+        cursor: sw-resize;
+        right: 0;
+        top: 0;
+    }
+
+    .coor_3 {
+        cursor: sw-resize;
+        left: 0;
+        bottom: 0;
+    }
+
+    .coor_4 {
+        cursor: se-resize;
+        right: 0;
+        bottom: 0;
+    }
+
+    .rotate {
+        width: 10px;
+        height: 10px;
+        overflow: hidden;
+        position: absolute;
+        left: 48%;
+        top: -20px;
+        background-color: #09C;
+    }
+
+    body {
+        background-color: #F3F3F3;
+    }
+</style>
+
+<body>
+<div class="palette" style="width:600px;height:600px;background:#ccc;position:relative;margin:0 auto">
+    <div class="box" id='box1'>
+        <div class="coor_4"></div>
+        <div class="rotate"></div>
+        1
+    </div>
+    <div class="box" id='box2'>
+        <div class="coor_4"></div>
+        2
+    </div>
+    <div class="box" id="box3">
+        3
+    </div>
+</div>
+<div style="text-align: center">
+    <a onclick="addDiv()">add</a>
+</div>
+</body>
+<script src="../js/lib/jquery.js"></script>
+<script src="../js/moudle/drag.js"></script>
+<script>
+    var div3 = new Drag({
+        plant: $('.palette'),
+        div: $('#box3')
+    });
+    var div2 = new Drag({
+        plant: $('.palette'),
+        div: $('#box2'),
+        coor: '.coor_4'
+    });
+    var div1 = new Drag({
+        plant: $('.palette'),
+        div: $('#box1'),
+        coor: '.coor_4',
+        rotate: '.rotate'
+    });
+    function addDiv(){
+        var round=Math.round(Math.random()*7000)
+        var boxid="box"+round;
+        var content='<div class="box" id='+boxid+'>  <div class="rotate"></div>';
+        content+='<div class="coor_4"></div>';
+        content+=round+'</div>';
+        $('.palette').append(content);
+        new Drag({
+            plant: $('.palette'),
+            div: $('#'+boxid),
+            coor: '.coor_4',
+            rotate:'.rotate'
+        })
+    }
+</script>
+</html>
