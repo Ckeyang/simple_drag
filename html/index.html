@@ -70,10 +70,11 @@
     body {
         background-color: #F3F3F3;
     }
+
 </style>
 
 <body>
-<div class="palette" style="width:600px;height:600px;background:#ccc;position:relative;margin:0 auto">
+<div class="palette" id="palette" style="width:600px;height:600px;background:#ccc;position:relative;margin:0 auto">
     <div class="box" id='box1'>
         <div class="coor_4"></div>
         <div class="rotate"></div>
@@ -87,41 +88,71 @@
         3
     </div>
 </div>
+
 <div style="text-align: center">
     <a onclick="addDiv()">add</a>
 </div>
+<div id="show" class="show">
+
+</div>
+<!--<canvas id="mycanvas" width="1000" height="800">-->
+
+</canvas>
 </body>
 <script src="../js/lib/jquery.js"></script>
 <script src="../js/moudle/drag.js"></script>
+<!--<script src="../js/moudle/drawTree.js"></script>-->
 <script>
-    var div3 = new Drag({
-        plant: $('.palette'),
-        div: $('#box3')
-    });
-    var div2 = new Drag({
-        plant: $('.palette'),
-        div: $('#box2'),
-        coor: '.coor_4'
-    });
-    var div1 = new Drag({
-        plant: $('.palette'),
-        div: $('#box1'),
-        coor: '.coor_4',
-        rotate: '.rotate'
-    });
-    function addDiv(){
-        var round=Math.round(Math.random()*7000)
-        var boxid="box"+round;
-        var content='<div class="box" id='+boxid+'>  <div class="rotate"></div>';
-        content+='<div class="coor_4"></div>';
-        content+=round+'</div>';
-        $('.palette').append(content);
-        new Drag({
-            plant: $('.palette'),
-            div: $('#'+boxid),
-            coor: '.coor_4',
-            rotate:'.rotate'
-        })
-    }
+    /*$(document).ready(function () {
+        var canvas = document.getElementById('mycanvas');
+        var ctx = canvas.getContext('2d');
+        drawTree(ctx, 400,700, 60, -Math.PI /2, 10, 10);
+    });*/
+     $('.palette').mouseup(function(e){
+     showDiv();
+     });
+     var div3 = new Drag({
+     plant: $('#palette'),
+     div: $('#box3')
+     });
+     var div2 = new Drag({
+     plant: $('#palette'),
+     div: $('#box2'),
+     coor: '.coor_4'
+     });
+     var div1 = new Drag({
+     plant: $('#palette'),
+     div: $('#box1'),
+     coor: '.coor_4',
+     rotate: '.rotate'
+     });
+     function addDiv(){
+     var round=Math.round(Math.random()*7000);
+     var boxid="box"+round;
+     var content='<div class="box" id='+boxid+'>  <div class="rotate"></div>';
+     content+='<div class="coor_4"></div>';
+     content+=round+'</div>';
+     $('#palette').append(content);
+     new Drag({
+     plant: $('#palette'),
+     div: $('#'+boxid),
+     coor: '.coor_4',
+     rotate:'.rotate'
+     })
+     }
+     function showDiv(){
+     //document.createElement('div');
+     $('#show').html(' ');
+     $('#show').attr('style',$('#palette').attr('style'));
+     $('#show').attr('class',$('#palette').attr('class'));
+     $('#show').css({'overflow':'hidden'});
+     var children=$('#palette').children().clone();
+     for(var i=0;i<children.length;i++){
+     var div=children[i];
+     div.removeAttribute('id');
+     $(div).html(' ');
+     $('#show').append(div);
+     }
+     }
 </script>
 </html>
