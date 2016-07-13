@@ -3,7 +3,7 @@
     抄抄改改，写了个简单的拖拽，旋转，放大缩小的小插件!很丑!
     先加载jquery,再加载drag.js
     <script src="jquery.js"></script>
-    <script src="drag.js"></script>
+    <script src="drag.min.js"></script>
 
 #### 使用
 
